@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MAPi × RCA — L'audit de portefeuille offert, relu par nos experts en financement public</title>
-<meta name="description" content="Partenariat MAPi × RCA : audit de portefeuille d'une valeur de 1 299 € offert aux cabinets RCA. SIRET uniquement, aucune donnée personnelle. Solution hybride experts + plateforme, 87% de succès." />
+<title>MAPi × RCA, audit de portefeuille offert (1 299 €) pour les experts-comptables</title>
+<meta name="description" content="Partenariat MAPi × RCA : audit de portefeuille d'une valeur de 1 299 € offert aux cabinets RCA. SIRET uniquement, aucune donnée personnelle. Solution hybride experts en financement public + plateforme de veille, 87 % de succès." />
+<meta name="theme-color" content="#006DEC" />
+
+<!-- Canonical & robots -->
+<link rel="canonical" href="https://gaeldius.github.io/mapi-rca-landing/" />
+<meta name="robots" content="index,follow" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:title" content="MAPi × RCA, audit de portefeuille offert (1 299 €)" />
+<meta property="og:description" content="Solution hybride experts en financement public + plateforme de veille. Offre exclusive cabinets RCA, audit relu par nos experts. SIRET uniquement, aucune donnée personnelle." />
+<meta property="og:image" content="https://gaeldius.github.io/mapi-rca-landing/assets/images/hero-bottle.jpg" />
+<meta property="og:url" content="https://gaeldius.github.io/mapi-rca-landing/" />
+<meta property="og:site_name" content="MAPi" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MAPi × RCA, audit de portefeuille offert (1 299 €)" />
+<meta name="twitter:description" content="Audit de portefeuille pour les cabinets clients RCA, valeur 1 299 €, offert dans le cadre du partenariat." />
+<meta name="twitter:image" content="https://gaeldius.github.io/mapi-rca-landing/assets/images/hero-bottle.jpg" />
+
+<!-- Icon -->
 <link rel="icon" href="assets/logos/logo-mapi.svg" type="image/svg+xml" />
+
+<!-- Critical resource preloads -->
+<link rel="preload" as="image" href="assets/images/hero-bottle.webp" type="image/webp" fetchpriority="high" />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/MuseoSansCyrl-900.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/MuseoSansCyrl-500.woff2" crossorigin />
 
 <!-- Local Museo Sans fonts (officielles, charte MAPi) -->
 <style>
@@ -71,6 +98,9 @@
     --c-line:         #DCE8F3;
 
     --c-rca:          #4F42ED;   /* seulement pour le logo RCA + sa section */
+    --c-success:      #17B67A;   /* form submit confirmation only */
+    --c-orange-700:   var(--c-orange-700);   /* darker orange (button hover) */
+    --c-orange-800:   var(--c-orange-800);   /* deepest orange (hot tag text) */
 
     --r-sm: 10px;
     --r-md: 18px;
@@ -128,6 +158,52 @@
   .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
   @media (max-width: 600px) { .container { padding: 0 20px; } }
 
+  /* ================================================================
+     ACCESSIBILITY: skip-link, focus-visible, sr-only
+     ================================================================ */
+  .sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  .skip-link {
+    position: absolute; top: -100px; left: 16px;
+    background: var(--c-blue); color: var(--c-paper);
+    padding: 12px 18px; border-radius: 10px;
+    font-weight: 700; font-size: 0.95rem;
+    z-index: 200;
+    transition: top .2s ease;
+  }
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    top: 16px;
+    color: var(--c-paper);
+    outline: 3px solid var(--c-orange);
+    outline-offset: 2px;
+  }
+  /* Reset default focus, then a clean focus-visible everywhere */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 3px solid var(--c-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .btn:focus-visible {
+    outline: 3px solid var(--c-paper);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--c-blue);
+  }
+  .hero .btn:focus-visible {
+    outline: 3px solid var(--c-orange);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(255,255,255,.25);
+  }
+  .form-field input:focus-visible,
+  .form-field select:focus-visible {
+    outline: none;
+  }
+
   /* Eyebrow */
   .eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
@@ -149,7 +225,7 @@
   .eyebrow.on-dark {
     background: rgba(255,255,255,.08);
     border-color: rgba(255,255,255,.18);
-    color: #fff;
+    color: var(--c-paper);
   }
   .eyebrow.on-dark::before { box-shadow: 0 0 0 3px rgba(255,147,79,.22); }
 
@@ -161,6 +237,7 @@
     font-family: var(--f); font-weight: 700; font-size: 1rem;
     padding: 16px 26px; border-radius: 999px;
     border: 2px solid transparent; cursor: pointer;
+    min-height: 48px;
     transition: transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
     white-space: nowrap; letter-spacing: -0.005em;
   }
@@ -171,19 +248,19 @@
     box-shadow: var(--shadow-warm);
   }
   .btn-primary:hover {
-    background: #F37A2E; transform: translateY(-2px);
+    background: var(--c-orange-700); transform: translateY(-2px);
     box-shadow: 0 24px 60px rgba(243,122,46,.5);
     color: var(--c-ink);
   }
   .btn-blue {
-    background: var(--c-blue); color: #fff;
+    background: var(--c-blue); color: var(--c-paper);
     box-shadow: var(--shadow-blue);
   }
-  .btn-blue:hover { background: var(--c-blue); opacity: .9; transform: translateY(-2px); color: #fff; }
+  .btn-blue:hover { background: var(--c-blue); opacity: .9; transform: translateY(-2px); color: var(--c-paper); }
   .btn-outline {
     background: transparent; color: var(--c-blue); border-color: var(--c-blue);
   }
-  .btn-outline:hover { background: var(--c-blue); color: #fff; }
+  .btn-outline:hover { background: var(--c-blue); color: var(--c-paper); }
 
   /* Canonical price strike used inside all primary CTAs */
   .ct-strike {
@@ -197,8 +274,15 @@
   .btn-cta-small {
     padding: 12px 20px;
     font-size: .9rem;
+    min-height: 44px;
   }
   .btn-cta-small .ct-strike { margin-left: 2px; }
+  .btn-success {
+    background: var(--c-success) !important;
+    color: var(--c-paper) !important;
+    cursor: default;
+  }
+  .btn-success:hover { transform: none !important; }
 
   /* ================================================================
      LOGOS (vrais SVG)
@@ -206,28 +290,6 @@
   .logo-mapi { height: 36px; width: auto; }
   .logo-rca  { height: 32px; width: auto; }
   @media (max-width: 520px) { .logo-mapi { height: 30px; } .logo-rca { height: 26px; } }
-
-  /* ================================================================
-     BANNER TOP
-     ================================================================ */
-  .banner {
-    background: var(--c-ink);
-    color: #fff;
-    padding: 10px 0; overflow: hidden; position: relative;
-  }
-  .banner-track {
-    display: flex; gap: 56px; white-space: nowrap;
-    animation: marquee 42s linear infinite;
-    font-family: var(--f); font-weight: 700; font-size: 0.86rem;
-    letter-spacing: 0.06em;
-  }
-  .banner-track span { display: inline-flex; gap: 22px; align-items: center; }
-  .banner-track b { color: var(--c-orange); font-weight: 900; }
-  .banner-track .sep { color: var(--c-orange); font-weight: 900; }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
 
   /* ================================================================
      NAV
@@ -261,11 +323,66 @@
   }
   .nav-links a:hover { color: var(--c-blue); opacity: 1; }
   .nav-links a:hover::after { transform: scaleX(1); }
-  @media (max-width: 1120px) { .nav-links { display: none; } }
+
+  /* Mobile burger button, hidden on desktop */
+  .nav-burger {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent;
+    border: 1px solid var(--c-line);
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 0;
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 5px;
+  }
+  .nav-burger span {
+    display: block; width: 20px; height: 2px;
+    background: var(--c-ink); border-radius: 2px;
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .nav-burger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-burger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-burger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 1120px) {
+    .nav-links {
+      position: absolute; top: 80px; left: 0; right: 0;
+      display: flex; flex-direction: column; gap: 0;
+      background: var(--c-paper);
+      border-bottom: 1px solid var(--c-line);
+      box-shadow: var(--shadow-md);
+      padding: 12px 28px 24px;
+      transform: translateY(-12px);
+      opacity: 0; pointer-events: none;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1; pointer-events: auto;
+    }
+    .nav-links a {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--c-line);
+      font-size: 1rem;
+      min-height: 44px;
+      display: flex; align-items: center;
+    }
+    .nav-links a:last-child { border-bottom: none; }
+    .nav-links a::after { display: none; }
+    .nav-burger { display: inline-flex; }
+    .nav-cta { display: none; }
+  }
   @media (max-width: 600px)  { .nav-inner { gap: 14px; } .brand-duo { gap: 14px; } }
 
   /* ================================================================
-     HERO — image background, dark context, white typography
+     HERO, image background, dark context, white typography
      ================================================================ */
   .hero {
     position: relative;
@@ -278,11 +395,22 @@
         rgba(10,20,35,.48) 58%,
         rgba(10,20,35,.35) 78%,
         rgba(10,20,35,.55) 100%),
-      url('assets/images/hero-bottle.jpg');
+      url('assets/images/hero-bottle.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
-    color: #fff;
+    color: var(--c-paper);
+  }
+  /* JPEG fallback for browsers without WebP support */
+  @supports not (background-image: url('does-not-exist.webp')) {
+    .hero { background-image:
+      linear-gradient(92deg,
+        rgba(10,20,35,.92) 0%,
+        rgba(10,20,35,.78) 32%,
+        rgba(10,20,35,.48) 58%,
+        rgba(10,20,35,.35) 78%,
+        rgba(10,20,35,.55) 100%),
+      url('assets/images/hero-bottle.jpg'); }
   }
   /* subtle bottom-to-transparent reinforcement for wave contrast */
   .hero::before {
@@ -305,26 +433,8 @@
 
   .hero-inner { position: relative; z-index: 2; }
 
-  .hero-ribbon {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: rgba(255,255,255,.97);
-    border: 1px solid rgba(255,255,255,.4);
-    color: var(--c-blue);
-    font-weight: 700; font-size: 0.92rem;
-    padding: 10px 18px; border-radius: 999px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    backdrop-filter: saturate(160%) blur(10px);
-    -webkit-backdrop-filter: saturate(160%) blur(10px);
-    margin-bottom: 24px;
-  }
-  .hero-ribbon .strike {
-    color: var(--c-ink-45); text-decoration: line-through; font-weight: 500;
-  }
-  .hero-ribbon .orange { color: var(--c-orange); font-weight: 900; letter-spacing: .02em; }
-  .hero-ribbon .sep { width: 4px; height: 4px; background: var(--c-ink-45); border-radius: 50%; }
-
   .hero h1 {
-    color: #fff;
+    color: var(--c-paper);
     font-size: clamp(2.5rem, 5.8vw, 4.7rem);
     text-shadow: 0 2px 24px rgba(0,0,0,.35);
   }
@@ -333,7 +443,7 @@
     color: var(--c-orange);
   }
   .hero h1 .hl {
-    position: relative; color: #fff; display: inline-block;
+    position: relative; color: var(--c-paper); display: inline-block;
   }
   .hero h1 .hl::after {
     content:""; position: absolute; left: -4px; right: -4px;
@@ -369,20 +479,20 @@
     font-weight: 500;
     text-shadow: 0 1px 12px rgba(0,0,0,.3);
   }
-  .hero-lede strong { color: #fff; font-weight: 700; }
+  .hero-lede strong { color: var(--c-paper); font-weight: 700; }
   .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 42px; }
 
   /* Light variant of outline button for hero (dark context) */
   .hero .btn-outline {
-    color: #fff;
+    color: var(--c-paper);
     border-color: rgba(255,255,255,.55);
     background: rgba(255,255,255,.06);
     backdrop-filter: blur(6px);
   }
   .hero .btn-outline:hover {
-    background: #fff;
+    background: var(--c-paper);
     color: var(--c-blue);
-    border-color: #fff;
+    border-color: var(--c-paper);
   }
 
   .hero-trust {
@@ -393,7 +503,7 @@
   .hero-trust-item { line-height: 1.15; }
   .hero-trust-item .v {
     font-family: var(--f); font-size: 1.7rem; font-weight: 900;
-    color: #fff; letter-spacing: -0.02em;
+    color: var(--c-paper); letter-spacing: -0.02em;
     display: block;
     text-shadow: 0 1px 10px rgba(0,0,0,.3);
   }
@@ -408,22 +518,6 @@
 
   /* Hero visual */
   .hero-visual { position: relative; }
-  .hero-visual .echo-dot {
-    position: absolute; width: 170px; height: 170px;
-    background: var(--c-orange);
-    border-radius: 50%;
-    top: -30px; right: -20px; z-index: 0;
-    box-shadow: 0 30px 80px rgba(255,147,79,.4);
-  }
-  .hero-visual .echo-ring {
-    position: absolute; width: 120px; height: 120px;
-    border: 2.5px dashed var(--c-blue);
-    opacity: .5;
-    border-radius: 50%;
-    bottom: -30px; left: -30px; z-index: 0;
-    animation: spin 60s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
 
   .card-audit {
     position: relative; z-index: 2;
@@ -481,7 +575,7 @@
     margin: 14px 20px 20px; padding: 18px 22px;
     border-radius: var(--r-md);
     background: var(--c-ink);
-    color: #fff;
+    color: var(--c-paper);
     display: flex; justify-content: space-between; align-items: center;
     position: relative; overflow: hidden;
   }
@@ -514,14 +608,14 @@
   @media (max-width: 980px) {
     .hero {
       padding: 60px 0 140px;
-      /* on mobile, single-column stack — use a uniform vertical overlay
-         so both the text and the card are readable against the image */
+      /* on mobile, single-column stack: uniform vertical overlay so both
+         text and card stay readable against the image */
       background-image:
         linear-gradient(180deg,
           rgba(10,20,35,.85) 0%,
           rgba(10,20,35,.72) 50%,
           rgba(10,20,35,.78) 100%),
-        url('assets/images/hero-bottle.jpg');
+        url('assets/images/hero-bottle.webp');
       background-position: center;
     }
     .hero-inner { grid-template-columns: 1fr; gap: 50px; }
@@ -529,7 +623,7 @@
   }
 
   /* ================================================================
-     POSITIONNEMENT — MAPi est une SOLUTION
+     POSITIONNEMENT, MAPi est une SOLUTION
      ================================================================ */
   .positioning { padding: 120px 0 100px; background: var(--c-paper); }
   .pos-head { text-align: center; max-width: 800px; margin: 0 auto 60px; }
@@ -590,7 +684,7 @@
     text-align: center;
     padding: 32px 40px;
     background: var(--c-ink);
-    color: #fff; border-radius: var(--r-lg);
+    color: var(--c-paper); border-radius: var(--r-lg);
     position: relative; overflow: hidden;
   }
   .pos-conclude::before {
@@ -604,7 +698,7 @@
     background: var(--c-orange); filter: blur(60px); opacity: .55;
   }
   .pos-conclude p {
-    color: #fff; margin: 0; font-size: 1.25rem; line-height: 1.55;
+    color: var(--c-paper); margin: 0; font-size: 1.25rem; line-height: 1.55;
     font-weight: 500;
     position: relative; z-index: 2;
   }
@@ -680,7 +774,7 @@
 
   .price-tag {
     display: inline-flex; align-items: center; gap: 14px;
-    background: var(--c-ink); color: #fff;
+    background: var(--c-ink); color: var(--c-paper);
     padding: 12px 20px; border-radius: 999px;
     font-weight: 700; font-size: 0.9rem; letter-spacing: .01em;
     margin-bottom: 22px;
@@ -722,7 +816,7 @@
   .audit-promise .num {
     flex: none; width: 32px; height: 32px;
     border-radius: 50%;
-    background: var(--c-blue); color: #fff;
+    background: var(--c-blue); color: var(--c-paper);
     display: inline-flex; align-items: center; justify-content: center;
     font-weight: 900; font-size: 0.88rem;
   }
@@ -751,7 +845,7 @@
   }
   .audit-mock .bar {
     background: var(--c-ink); padding: 18px 24px;
-    display: flex; align-items: center; gap: 12px; color: #fff;
+    display: flex; align-items: center; gap: 12px; color: var(--c-paper);
   }
   .audit-mock .bar .dots { display: flex; gap: 6px; }
   .audit-mock .bar .dots i {
@@ -770,10 +864,10 @@
     padding-bottom: 18px; margin-bottom: 16px;
     border-bottom: 2px solid var(--c-blue-10);
   }
-  .audit-mock .head-row h4 {
-    margin: 0; font-size: 1.1rem; color: var(--c-ink);
+  .audit-mock .head-row .amock-title {
+    margin: 0; font-size: 1.1rem; color: var(--c-ink); font-weight: 700;
   }
-  .audit-mock .head-row h4 small {
+  .audit-mock .head-row .amock-title small {
     display: block; color: var(--c-ink-65); font-size: 0.72rem;
     font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
     margin-bottom: 6px;
@@ -812,7 +906,7 @@
     background: var(--c-blue-10); color: var(--c-blue);
   }
   .audit-mock .clients .tag.hot {
-    background: var(--c-orange-12); color: #CF6A18;
+    background: var(--c-orange-12); color: var(--c-orange-800);
   }
   .audit-mock .expert-sign {
     display: flex; gap: 14px; align-items: center;
@@ -838,7 +932,7 @@
   .audit-mock .total {
     margin-top: 24px; padding: 22px 26px;
     border-radius: var(--r-md);
-    background: var(--c-ink); color: #fff;
+    background: var(--c-ink); color: var(--c-paper);
     display: flex; justify-content: space-between; align-items: center;
     position: relative; overflow: hidden;
   }
@@ -907,7 +1001,7 @@
     border: 1px solid var(--c-line); border-radius: 999px;
     font-size: 0.82rem; font-weight: 700; color: var(--c-ink);
   }
-  .privacy-box .chip.ok svg { color: #17B67A; }
+  .privacy-box .chip.ok svg { color: var(--c-success); }
   .privacy-box .chip.ko { color: var(--c-ink-45); text-decoration: line-through; }
   .privacy-box .chip.ko svg { color: var(--c-ink-45); }
   .privacy-box .chip svg { width: 14px; height: 14px; }
@@ -926,6 +1020,7 @@
   .steps-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
     position: relative;
+    align-items: start;
   }
   .steps-grid::before {
     content:""; position: absolute;
@@ -939,7 +1034,14 @@
     background: var(--c-paper);
     border: 1.5px solid var(--c-line);
     border-radius: var(--r-lg);
-    transition: all .3s ease;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  /* Subtle zigzag offset breaks the identical-card grid feel */
+  .step:nth-child(2) { margin-top: 32px; }
+  .step:nth-child(4) { margin-top: 32px; }
+  @media (max-width: 980px) {
+    .step:nth-child(2),
+    .step:nth-child(4) { margin-top: 0; }
   }
   .step:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--c-blue); }
   .step .ico {
@@ -976,7 +1078,7 @@
   .kpi {
     padding: 100px 0;
     background: var(--c-ink);
-    color: #fff;
+    color: var(--c-paper);
     position: relative; overflow: hidden;
   }
   .kpi::before {
@@ -990,12 +1092,16 @@
     background: radial-gradient(circle, rgba(255,147,79,.22), transparent 65%);
   }
   .kpi .head { position: relative; z-index: 2; text-align: center; max-width: 660px; margin: 0 auto 60px; }
-  .kpi .head h2 { color: #fff; margin-bottom: 10px; }
+  .kpi .head h2 { color: var(--c-paper); margin-bottom: 10px; }
   .kpi .head h2 em { font-style: italic; font-weight: 500; color: var(--c-orange); }
   .kpi .head p { color: rgba(255,255,255,.78); font-size: 1.1rem; }
 
+  /* Asymmetric KPI grid: 87 % is the feature card, others tile around */
   .kpi-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(140px, auto);
+    gap: 22px;
     position: relative; z-index: 2;
   }
   .kpi-item {
@@ -1003,8 +1109,8 @@
     background: rgba(255,255,255,.04);
     border: 1px solid rgba(255,255,255,.1);
     border-radius: var(--r-lg);
-    backdrop-filter: blur(6px);
-    transition: all .3s ease;
+    transition: background .3s ease, border-color .3s ease, transform .3s ease;
+    display: flex; flex-direction: column; justify-content: space-between;
   }
   .kpi-item:hover {
     background: rgba(255,255,255,.08);
@@ -1025,8 +1131,48 @@
     font-size: 0.85rem; color: rgba(255,255,255,.82);
     font-weight: 500;
   }
-  @media (max-width: 980px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr; } }
+  /* Feature: the 87 % card spans 2x2 and uses the brand blue */
+  .kpi-item.feature {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: var(--c-blue);
+    border-color: var(--c-blue);
+    padding: 44px 36px;
+    position: relative; overflow: hidden;
+  }
+  .kpi-item.feature::after {
+    content:""; position: absolute; bottom: -60px; right: -60px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: var(--c-orange); filter: blur(70px); opacity: .55;
+  }
+  .kpi-item.feature .v {
+    font-size: clamp(4.5rem, 8vw, 7rem);
+    color: var(--c-paper);
+    margin-bottom: 18px;
+  }
+  .kpi-item.feature .v small {
+    font-size: 2rem; color: var(--c-orange); font-weight: 900;
+  }
+  .kpi-item.feature .l {
+    font-size: 1.05rem; color: var(--c-paper); max-width: 320px;
+    font-weight: 500; line-height: 1.45;
+  }
+  .kpi-item.feature .feature-foot {
+    margin-top: 22px; padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,.28);
+    font-size: 0.8rem; color: rgba(255,255,255,.85);
+    letter-spacing: .04em; text-transform: uppercase; font-weight: 700;
+    position: relative; z-index: 1;
+  }
+  @media (max-width: 980px) {
+    .kpi-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; }
+    .kpi-item.feature { grid-column: span 2; grid-row: span 1; padding: 36px 28px; }
+    .kpi-item.feature .v { font-size: clamp(3.8rem, 12vw, 5rem); }
+  }
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .kpi-item.feature { grid-column: span 1; }
+  }
 
   /* ================================================================
      OFFER
@@ -1068,7 +1214,7 @@
   .offer-list span.txt { font-size: 0.94rem; color: var(--c-ink-80); line-height: 1.55; font-weight: 500; }
 
   .offer-side {
-    background: var(--c-ink); color: #fff;
+    background: var(--c-ink); color: var(--c-paper);
     padding: 56px 44px;
     display: flex; flex-direction: column;
     position: relative; overflow: hidden;
@@ -1096,7 +1242,7 @@
   .offer-side .price {
     font-family: var(--f); font-weight: 900;
     font-size: clamp(3rem, 5vw, 3.6rem);
-    line-height: 1; color: #fff; letter-spacing: -0.035em;
+    line-height: 1; color: var(--c-paper); letter-spacing: -0.035em;
     margin-bottom: 4px; position: relative; z-index: 2;
   }
   .offer-side .price small {
@@ -1208,7 +1354,7 @@
   .pt-conclusion {
     margin-top: 46px; padding: 36px 40px; text-align: center;
     background: var(--c-blue);
-    color: #fff; border-radius: var(--r-lg);
+    color: var(--c-paper); border-radius: var(--r-lg);
     position: relative; overflow: hidden;
   }
   .pt-conclusion::before {
@@ -1217,7 +1363,7 @@
     filter: blur(60px); opacity: 0.65;
   }
   .pt-conclusion p {
-    color: #fff; margin: 0; font-size: 1.15rem; line-height: 1.6;
+    color: var(--c-paper); margin: 0; font-size: 1.15rem; line-height: 1.6;
     position: relative; z-index: 2; font-weight: 500;
   }
   .pt-conclusion strong { color: var(--c-orange); font-weight: 900; }
@@ -1301,7 +1447,7 @@
   }
   .final-bullets .check {
     flex: none; width: 26px; height: 26px; border-radius: 50%;
-    background: var(--c-orange); color: #fff;
+    background: var(--c-orange); color: var(--c-paper);
     display: inline-flex; align-items: center; justify-content: center;
   }
   .final-bullets .check svg { width: 14px; height: 14px; }
@@ -1324,27 +1470,37 @@
   .form-card h3 em { font-style: italic; font-weight: 500; color: var(--c-blue); }
   .form-card .desc { margin-bottom: 22px; font-size: 0.92rem; color: var(--c-ink-80); }
 
+  /* Flat gift banner, not a nested card. Orange leading bar + plain text. */
   .form-gift {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 16px; margin-bottom: 22px;
-    background: var(--c-bg); border: 1px dashed var(--c-blue);
-    border-radius: 12px;
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 0 0 22px 0;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--c-line);
   }
   .form-gift .ico {
-    flex: none; width: 36px; height: 36px; border-radius: 10px;
-    background: var(--c-blue); color: #fff;
+    flex: none; width: 32px; height: 32px;
+    color: var(--c-orange);
     display: inline-flex; align-items: center; justify-content: center;
   }
-  .form-gift .ico svg { width: 18px; height: 18px; }
+  .form-gift .ico svg { width: 24px; height: 24px; }
   .form-gift .txt {
-    font-size: 0.88rem; font-weight: 500; color: var(--c-ink);
-    line-height: 1.4;
+    font-size: 0.92rem; font-weight: 500; color: var(--c-ink);
+    line-height: 1.5;
   }
-  .form-gift .txt strong { font-weight: 900; color: var(--c-ink); }
+  .form-gift .txt strong { font-weight: 700; color: var(--c-ink); }
   .form-gift .txt .line { text-decoration: line-through; color: var(--c-ink-45); }
   .form-gift .txt .new { color: var(--c-orange); font-weight: 900; }
+  .form-required-key {
+    margin: 0 0 14px;
+    font-size: 0.78rem; color: var(--c-ink-65); font-weight: 500;
+  }
+  .form-required-key span { color: var(--c-orange); font-weight: 700; }
+  .form-field label .req {
+    color: var(--c-orange); font-weight: 700; margin-left: 2px;
+  }
 
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
   .form-field { margin-bottom: 14px; }
   .form-field label {
     display: block; font-size: 0.82rem; font-weight: 700; color: var(--c-ink);
@@ -1358,7 +1514,7 @@
     transition: all .2s ease;
   }
   .form-field input:focus, .form-field select:focus {
-    outline: none; border-color: var(--c-blue); background: #fff;
+    outline: none; border-color: var(--c-blue); background: var(--c-paper);
     box-shadow: 0 0 0 4px var(--c-blue-10);
   }
   .form-card .btn { width: 100%; margin-top: 12px; font-size: 1.05rem; padding: 18px 26px; }
@@ -1394,7 +1550,7 @@
   }
   .footer h5 {
     font-family: var(--f); font-weight: 700; font-size: 0.86rem;
-    color: #fff; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--c-paper); letter-spacing: 0.14em; text-transform: uppercase;
     margin: 0 0 18px;
   }
   .footer-brand { display: flex; flex-direction: column; gap: 18px; }
@@ -1439,22 +1595,24 @@
   [data-animate][data-delay="4"] { transition-delay: .4s; }
 </style>
 </head>
-<body>
+<body id="top">
+
+<a href="#main" class="skip-link">Aller au contenu principal</a>
 
 <!-- ========= NAV ========= -->
-<nav class="nav">
+<nav class="nav" aria-label="Navigation principale">
   <div class="container nav-inner">
     <div class="brand-duo">
-      <a href="#" aria-label="MAPi — Mes Aides Publiques Infogreffe">
-        <img src="assets/logos/logo-mapi.svg" alt="MAPi" class="logo-mapi" />
+      <a href="#top" aria-label="MAPi, Mes Aides Publiques Infogreffe, retour en haut">
+        <img src="assets/logos/logo-mapi.svg" alt="" class="logo-mapi" width="120" height="40" />
       </a>
       <span class="brand-cross" aria-hidden="true">×</span>
-      <a href="#" aria-label="RCA">
-        <img src="assets/logos/logo-rca.svg" alt="RCA" class="logo-rca" />
-      </a>
+      <span aria-label="en partenariat avec RCA">
+        <img src="assets/logos/logo-rca.png" alt="" class="logo-rca" width="106" height="40" />
+      </span>
     </div>
 
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="#solution">La solution</a>
       <a href="#audit">Audit offert</a>
       <a href="#comment">Comment ça marche</a>
@@ -1462,12 +1620,18 @@
       <a href="#faq">Questions</a>
     </div>
 
-    <a href="#final" class="btn btn-blue btn-cta-small">
+    <a href="#final" class="btn btn-blue btn-cta-small nav-cta">
       Obtenir mon audit offert <span class="ct-strike">(1 299 €)</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
+
+    <button type="button" class="nav-burger" aria-expanded="false" aria-controls="nav-links" aria-label="Ouvrir le menu de navigation">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<main id="main">
 
 <!-- ========= HERO ========= -->
 <section class="hero">
@@ -1501,15 +1665,16 @@
     </div>
 
     <div class="hero-visual" data-animate data-delay="2">
-      <article class="card-audit" aria-hidden="true">
-        <div class="top">
+      <figure class="card-audit" aria-labelledby="card-audit-title">
+        <figcaption id="card-audit-title" class="sr-only">Exemple d'audit de portefeuille pour un cabinet fictif (Martin &amp; Associés), valeur 1 299 € offerte. Sur 142 SIRET scannés, 38 dossiers éligibles identifiés. Potentiel d'aides détecté : 1 247 000 €.</figcaption>
+        <div class="top" aria-hidden="true">
           <div class="label">
             <span class="k">Audit portefeuille</span>
-            <span class="v">Cabinet Martin & Associés</span>
+            <span class="v">Cabinet Martin &amp; Associés</span>
           </div>
           <span class="chip">1 299 € Offert</span>
         </div>
-        <div class="body">
+        <div class="body" aria-hidden="true">
           <div class="row">
             <div class="desc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></span>SIRET transmis (aucune autre donnée)</div>
             <div class="val">142</div>
@@ -1523,15 +1688,15 @@
             <div class="val">✓</div>
           </div>
         </div>
-        <div class="total">
+        <div class="total" aria-hidden="true">
           <span class="k">Potentiel d'aides détecté</span>
           <span class="v">1 247 000 €</span>
         </div>
-        <div class="foot">
+        <div class="foot" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Exemple · cabinet 140 clients · PASSI · hébergé en France
+          Exemple, cabinet 140 clients, PASSI, hébergé en France
         </div>
-      </article>
+      </figure>
     </div>
   </div>
 
@@ -1546,7 +1711,7 @@
     <div class="pos-head" data-animate>
       <span class="eyebrow">MAPi n'est pas une plateforme</span>
       <h2>C'est une <em>solution hybride</em>. Deux équipes humaines. Une plateforme qui veille.</h2>
-      <p>Un expert-comptable a déjà trop d'outils. Un logiciel de plus ne lui rendra pas son temps. Ce qui libère du temps, c'est de l'humain qualifié — quelqu'un qui prend le dossier en main, quelqu'un qui appelle les clients, quelqu'un qui fait le contenu. MAPi vous branche sur <strong>deux équipes</strong>. La plateforme, elle, n'est là que pour tout centraliser et veiller pour ne rater aucun dispositif.</p>
+      <p>Un expert-comptable a déjà trop d'outils. Un logiciel de plus ne lui rendra pas son temps. Ce qui libère du temps, c'est de l'humain qualifié, quelqu'un qui prend le dossier en main, quelqu'un qui appelle les clients, quelqu'un qui fait le contenu. MAPi vous branche sur <strong>deux équipes</strong>. La plateforme, elle, n'est là que pour tout centraliser et veiller pour ne rater aucun dispositif.</p>
     </div>
 
     <div class="pos-trio">
@@ -1554,7 +1719,7 @@
       <div class="pos-card human" data-animate>
         <div class="role">L'expert financement</div>
         <h3>Un ingénieur en financement public prend votre dossier en main.</h3>
-        <p>De la qualification jusqu'au virement, une seule personne chez MAPi est responsable de chaque dossier — ancien avocat, DAF, ou expert BPI/ADEME/Région. Il connaît les textes <em>et</em> les pratiques terrain.</p>
+        <p>De la qualification jusqu'au virement, une seule personne chez MAPi est responsable de chaque dossier, ancien avocat, DAF, ou expert BPI/ADEME/Région. Il connaît les textes <em>et</em> les pratiques terrain.</p>
         <ul>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
@@ -1566,7 +1731,7 @@
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Phase de négociation</strong> avec l'agent instructeur (BPI, Région, ADEME) — c'est là que se joue le 87 % de succès</span>
+            <span><strong>Phase de négociation</strong> avec l'agent instructeur (BPI, Région, ADEME), c'est là que se joue le 87 % de succès</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
@@ -1578,28 +1743,28 @@
       <!-- 2. Équipe commerciale -->
       <div class="pos-card commercial" data-animate data-delay="1">
         <div class="role">L'équipe commerciale</div>
-        <h3>Une équipe qui active votre portefeuille — à votre place, ou à vos côtés.</h3>
-        <p>Un chargé d'affaires MAPi développe votre portefeuille pour vous : il crée le contenu, appelle les clients, mène les entretiens projet. Vous pilotez, vous déléguez, ou vous participez — à chaque étape, vous décidez.</p>
+        <h3>Une équipe qui active votre portefeuille, à votre place, ou à vos côtés.</h3>
+        <p>Un chargé d'affaires MAPi développe votre portefeuille pour vous : il crée le contenu, appelle les clients, mène les entretiens projet. Vous pilotez, vous déléguez, ou vous participez, à chaque étape, vous décidez.</p>
         <ul>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Création du contenu de communication</strong> adressé à vos clients — emails, one-pagers, argumentaires, posts</span>
+            <span><strong>Création du contenu de communication</strong> adressé à vos clients, emails, one-pagers, argumentaires, posts</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Appels clients sur votre validation</strong> — jamais de contact sauvage, vous décidez qui, quand, pourquoi</span>
+            <span><strong>Appels clients sur votre validation</strong>, jamais de contact sauvage, vous décidez qui, quand, pourquoi</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Entretiens projet menés pour vous</strong> — qualification du besoin, détection d'opportunités, engagement client</span>
+            <span><strong>Entretiens projet menés pour vous</strong>, qualification du besoin, détection d'opportunités, engagement client</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Vous êtes invité à participer</strong> à chaque entretien — co-animez ou déléguez entièrement</span>
+            <span><strong>Vous êtes invité à participer</strong> à chaque entretien, co-animez ou déléguez entièrement</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Équivalent 5 j/homme par mois</strong> — sans consommer vos tickets MAPi</span>
+            <span><strong>Équivalent 5 j/homme par mois</strong>, sans consommer vos tickets MAPi</span>
           </li>
         </ul>
       </div>
@@ -1607,16 +1772,16 @@
       <!-- 3. Plateforme -->
       <div class="pos-card tech" data-animate data-delay="2">
         <div class="role">La plateforme de veille</div>
-        <h3>Un outil qui surveille 11 738 aides en continu — pour ne rien rater.</h3>
+        <h3>Un outil qui surveille 11 738 aides en continu, pour ne rien rater.</h3>
         <p>Pendant que les équipes travaillent, la plateforme garde l'œil ouvert et centralise tout : suivi des dossiers, alertes nouvelles aides, reporting cabinet, accès à votre portefeuille 24/7.</p>
         <ul>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>11 738 aides référencées</strong> — nationales, régionales, européennes, sectorielles</span>
+            <span><strong>11 738 aides référencées</strong>, nationales, régionales, européennes, sectorielles</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>25 à 100 nouvelles aides par semaine</strong> — veille ingérée, croisée, qualifiée</span>
+            <span><strong>25 à 100 nouvelles aides par semaine</strong>, veille ingérée, croisée, qualifiée</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
@@ -1624,7 +1789,7 @@
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>
-            <span><strong>Feature Dépenses Éligibles</strong> — unique sur le marché, révèle des opportunités insoupçonnées</span>
+            <span><strong>Feature Dépenses Éligibles</strong>, unique sur le marché, révèle des opportunités insoupçonnées</span>
           </li>
         </ul>
       </div>
@@ -1646,7 +1811,7 @@
         <span class="eyebrow">Le constat</span>
         <h2>Le financement public, ce continent que vos clients n'explorent <em>jamais</em>.</h2>
       </div>
-      <p>9 entreprises sur 10 passent à côté d'aides auxquelles elles ont droit. Pas par manque de projet — par manque d'information, de temps, d'expertise technique. C'est précisément ce que MAPi vient corriger, pour vos clients et pour vous.</p>
+      <p>9 entreprises sur 10 passent à côté d'aides auxquelles elles ont droit. Pas par manque de projet, par manque d'information, de temps, d'expertise technique. C'est précisément ce que MAPi vient corriger, pour vos clients et pour vous.</p>
     </div>
 
     <div class="stats">
@@ -1681,14 +1846,14 @@
         <span class="small">Exclusif cabinets RCA</span>
       </div>
       <span class="eyebrow">Audit de portefeuille</span>
-      <h2>Votre portefeuille audité — et <em>relu</em> par nos experts en financement public.</h2>
+      <h2>Votre portefeuille audité, et <em>relu</em> par nos experts en financement public.</h2>
       <p>Ce n'est pas un simple scan automatisé. Chaque audit est passé au crible par un ingénieur en financement public avant de vous être remis. L'intérêt d'une opportunité n'est jamais évalué par une machine seule.</p>
 
       <ul class="audit-promise">
         <li>
           <span class="num">01</span>
           <div class="content">
-            <strong>Uniquement les SIRET — aucune donnée personnelle</strong>
+            <strong>Uniquement les SIRET, aucune donnée personnelle</strong>
             <span class="txt">Pas de bilans, pas de données financières sensibles, pas de données nominatives clients. Un simple fichier CSV de SIRET suffit.</span>
           </div>
         </li>
@@ -1709,7 +1874,7 @@
         <li>
           <span class="num">04</span>
           <div class="content">
-            <strong>Rapport actionnable livré en 48 h — <span style="color:var(--c-orange)">valeur 1 299 € · OFFERT RCA</span></strong>
+            <strong>Rapport actionnable livré en 48 h, <span style="color:var(--c-orange)">valeur 1 299 € · OFFERT RCA</span></strong>
             <span class="txt">Client par client, aide par aide, montant potentiel estimé, priorité et commentaire de l'expert. Directement utilisable avec votre client.</span>
           </div>
         </li>
@@ -1729,8 +1894,8 @@
         </div>
         <div class="body">
           <div class="head-row">
-            <h4><small>Rapport cabinet · RCA</small>Top dossiers détectés</h4>
-            <span class="pill">Extrait 5/38</span>
+            <p class="amock-title" aria-hidden="true"><small>Rapport cabinet · RCA</small>Top dossiers détectés</p>
+            <span class="pill" aria-hidden="true">Extrait 5/38</span>
           </div>
           <ul class="clients">
             <li>
@@ -1743,7 +1908,7 @@
             </li>
             <li>
               <div class="who">
-                <span class="name">Bistrot du Port — SARL</span>
+                <span class="name">Bistrot du Port, SARL</span>
                 <span class="sect">CHR · Rénovation · 9 salariés</span>
               </div>
               <div><div class="amt">37 500 €</div><div class="amt-sub">Région Tourisme</div></div>
@@ -1802,7 +1967,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
       </div>
       <div>
-        <h3>On n'a besoin que des SIRET — rien d'autre.</h3>
+        <h3>On n'a besoin que des SIRET, rien d'autre.</h3>
         <p>Pour auditer votre portefeuille, <strong>un simple fichier CSV de numéros SIRET</strong> suffit. Pas de bilans. Pas de chiffres d'affaires. Pas de noms de clients. Les données publiques (Infogreffe, INSEE) nous donnent déjà tout ce qu'il faut. Et tout est hébergé en France, certifié PASSI.</p>
         <div class="chips">
           <span class="chip ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg>SIRET</span>
@@ -1870,9 +2035,12 @@
       <p>Plus de 750 dossiers accompagnés, 20 000 entreprises conseillées, 250 cabinets partenaires. Infogreffe est notre actionnaire majoritaire depuis août 2025.</p>
     </div>
     <div class="kpi-grid">
-      <div class="kpi-item" data-animate>
-        <div class="v">87<small>%</small></div>
-        <div class="l">de taux de succès sur dossiers déposés</div>
+      <div class="kpi-item feature" data-animate>
+        <div>
+          <div class="v">87<small>%</small></div>
+          <div class="l">de taux de succès sur les dossiers déposés. Là où les cabinets classiques annoncent 60 à 70 %, MAPi sécurise par la phase de négociation avec l'agent instructeur.</div>
+        </div>
+        <div class="feature-foot">BPI · Région · ADEME · France 2030</div>
       </div>
       <div class="kpi-item" data-animate data-delay="1">
         <div class="v">750<small>+</small></div>
@@ -1900,7 +2068,7 @@
     <div class="head" data-animate>
       <span class="eyebrow">L'offre MAPi Expert</span>
       <h2>Une équipe complète <em>en coulisses</em>. Votre marque en façade.</h2>
-      <p style="font-size:1.1rem">Pas de recrutement, pas de formation, pas d'investissement techno. L'expert financement MAPi est votre département aides publiques externalisé, branché sur votre portefeuille — avec la plateforme de veille en back-up permanent.</p>
+      <p style="font-size:1.1rem">Pas de recrutement, pas de formation, pas d'investissement techno. L'expert financement MAPi est votre département aides publiques externalisé, branché sur votre portefeuille, avec la plateforme de veille en back-up permanent.</p>
     </div>
 
     <div class="offer-box" data-animate>
@@ -1918,7 +2086,7 @@
           </li>
           <li>
             <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-            <span><strong>Équipe commerciale dédiée</strong><span class="txt">Appels clients (sur votre validation), qualification projet, lettres de mission. Équivalent 5 j/homme/mois — sans consommer vos tickets.</span></span>
+            <span><strong>Équipe commerciale dédiée</strong><span class="txt">Appels clients (sur votre validation), qualification projet, lettres de mission. Équivalent 5 j/homme/mois, sans consommer vos tickets.</span></span>
           </li>
           <li>
             <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 17h5l-1.4-1.4A8 8 0 1 0 4 18h6"/><path d="M9 17l-2 4M15 17l2 4"/></svg></span>
@@ -1926,7 +2094,7 @@
           </li>
           <li>
             <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
-            <span><strong>Feature Dépenses Éligibles</strong><span class="txt">Unique sur le marché. À partir des factures du client, on remonte aux aides — révèle des projets insoupçonnés.</span></span>
+            <span><strong>Feature Dépenses Éligibles</strong><span class="txt">Unique sur le marché. À partir des factures du client, on remonte aux aides, révèle des projets insoupçonnés.</span></span>
           </li>
         </ul>
       </div>
@@ -1964,13 +2132,13 @@
 
     <div class="brand-meet" data-animate>
       <div class="brand-pod">
-        <img src="assets/logos/logo-rca.svg" alt="RCA" class="logo-rca" style="height:36px"/>
-        <span class="tag">Éditeur · MEG · Pilotage</span>
+        <img src="assets/logos/logo-rca.png" alt="RCA" class="logo-rca" width="106" height="40" loading="lazy" decoding="async" style="height:40px;width:auto"/>
+        <span class="tag">Éditeur, MEG, Pilotage</span>
       </div>
-      <span class="cross">×</span>
+      <span class="cross" aria-hidden="true">×</span>
       <div class="brand-pod">
-        <img src="assets/logos/logo-mapi.svg" alt="MAPi" class="logo-mapi" style="height:44px"/>
-        <span class="tag">Infogreffe · Aides publiques</span>
+        <img src="assets/logos/logo-mapi.svg" alt="MAPi" class="logo-mapi" width="120" height="48" loading="lazy" decoding="async" style="height:48px;width:auto"/>
+        <span class="tag">Infogreffe, Aides publiques</span>
       </div>
     </div>
 
@@ -1987,7 +2155,7 @@
       </div>
       <div class="pt-card mapi" data-animate data-delay="1">
         <h3>MAPi ouvre un marché <span class="chip">La mission conseil</span></h3>
-        <p>Là où RCA structure le pilotage, MAPi active un service de conseil à forte valeur perçue — sans que vous ayez à devenir expert du sujet.</p>
+        <p>Là où RCA structure le pilotage, MAPi active un service de conseil à forte valeur perçue, sans que vous ayez à devenir expert du sujet.</p>
         <ul class="pt-list">
           <li>Audit portefeuille 1 299 € offert aux cabinets RCA</li>
           <li>Dossiers montés et négociés par nos experts</li>
@@ -2010,16 +2178,16 @@
   <div class="container">
     <div class="head" data-animate>
       <span class="eyebrow">Vos questions</span>
-      <h2>Les objections <em>qu'on entend</em> — et nos réponses.</h2>
+      <h2>Les objections <em>qu'on entend</em>, et nos réponses.</h2>
       <p>Si une question n'est pas listée, posez-la lors de l'audit. Aucune n'est taboue.</p>
     </div>
     <div class="faq-list">
       <details class="faq-item" data-animate><summary>"Quelles données devez-vous avoir pour l'audit ?"</summary><div class="ans"><p><strong>Uniquement les SIRET de vos clients.</strong> Pas de bilans, pas de comptes, pas de données nominatives. Un simple CSV avec les numéros SIRET suffit. Les données publiques (Infogreffe, INSEE) nous donnent ce qu'il faut pour détecter les opportunités. Tout est hébergé en France, certifié PASSI, conforme RGPD.</p></div></details>
       <details class="faq-item" data-animate><summary>"L'audit à 1 299 €, pourquoi offert ?"</summary><div class="ans"><p>L'audit portefeuille standard chez MAPi est facturé <strong>1 299 € HT</strong> : c'est le coût réel du temps d'un expert financement public pour relire, valider, prioriser les dossiers de votre base. Dans le cadre de notre partenariat avec RCA, il est <strong>intégralement offert</strong> aux cabinets clients RCA. C'est notre pari : vous montrer la valeur avant de vous demander quoi que ce soit.</p></div></details>
-      <details class="faq-item" data-animate><summary>"MAPi, c'est un logiciel ou un cabinet de conseil ?"</summary><div class="ans"><p>Ni l'un, ni l'autre — les deux. MAPi est une <strong>solution hybride</strong>. Nos ingénieurs en financement public montent et négocient chaque dossier de bout en bout : qualification, constitution, négociation avec l'agent instructeur (BPI, Région, ADEME), suivi post-dépôt. La plateforme sert de tour de contrôle : veille continue sur 11 738 aides, suivi temps réel de vos dossiers, alertes sur les nouvelles opportunités.</p></div></details>
+      <details class="faq-item" data-animate><summary>"MAPi, c'est un logiciel ou un cabinet de conseil ?"</summary><div class="ans"><p>Ni l'un, ni l'autre, les deux. MAPi est une <strong>solution hybride</strong>. Nos ingénieurs en financement public montent et négocient chaque dossier de bout en bout : qualification, constitution, négociation avec l'agent instructeur (BPI, Région, ADEME), suivi post-dépôt. La plateforme sert de tour de contrôle : veille continue sur 11 738 aides, suivi temps réel de vos dossiers, alertes sur les nouvelles opportunités.</p></div></details>
       <details class="faq-item" data-animate><summary>"Je n'ai pas le temps de monter ces dossiers."</summary><div class="ans"><p>C'est précisément le point. L'expert MAPi fait le montage, la constitution du dossier, les allers-retours avec l'administration, <strong>la phase de négociation</strong>. Vous validez aux points de contrôle, votre client touche l'aide, vous touchez 40 % de la commission. Charge de travail cabinet : minime.</p></div></details>
-      <details class="faq-item" data-animate><summary>"Mes clients sont des TPE / PME, ils sont trop petits."</summary><div class="ans"><p>Faux. Un bistrot qui rénove sa terrasse, un artisan qui achète une machine, une casse auto qui s'équipe, un GAEC qui modernise — tous éligibles. On a levé <strong>77 000 €</strong> pour un investissement de 12 000 €. Les TPE/PME sont notre cœur de cible.</p></div></details>
-      <details class="faq-item" data-animate><summary>"Et si le dossier est refusé ?"</summary><div class="ans"><p>87 % de succès. Si refus : <strong>zéro commission, zéro facture</strong>. Pas de risque. Nos experts savent aussi représenter un dossier après un refus — dans la plupart des cas, c'est un détail qui se corrige dans la phase de négociation.</p></div></details>
+      <details class="faq-item" data-animate><summary>"Mes clients sont des TPE / PME, ils sont trop petits."</summary><div class="ans"><p>Faux. Un bistrot qui rénove sa terrasse, un artisan qui achète une machine, une casse auto qui s'équipe, un GAEC qui modernise, tous éligibles. On a levé <strong>77 000 €</strong> pour un investissement de 12 000 €. Les TPE/PME sont notre cœur de cible.</p></div></details>
+      <details class="faq-item" data-animate><summary>"Et si le dossier est refusé ?"</summary><div class="ans"><p>87 % de succès. Si refus : <strong>zéro commission, zéro facture</strong>. Pas de risque. Nos experts savent aussi représenter un dossier après un refus, dans la plupart des cas, c'est un détail qui se corrige dans la phase de négociation.</p></div></details>
       <details class="faq-item" data-animate><summary>"On travaille déjà avec Sogedev / Ayming sur le CIR."</summary><div class="ans"><p>Parfait. MAPi <strong>ne traite pas le CIR/CII/JEI</strong>. Nous couvrons les 11 000 autres aides : régionales, sectorielles, européennes, ADEME, France 2030, investissement, export, transition écologique. Nous sommes complémentaires, pas concurrents.</p></div></details>
       <details class="faq-item" data-animate><summary>"Ça va perturber la relation avec mes clients."</summary><div class="ans"><p>Non. La plateforme est <strong>en marque blanche</strong> aux couleurs de votre cabinet. Vos clients voient votre logo, votre portail. L'expert MAPi intervient en coulisses. Vous restez le prescripteur et l'interlocuteur principal.</p></div></details>
     </div>
@@ -2035,7 +2203,7 @@
         <h2>Vos clients ont un cap. <em>Donnez-leur le vent.</em></h2>
         <p class="lead">Remplissez ce formulaire. Un chef de projet MAPi vous contacte sous 24 h pour cadrer l'audit. Vous transmettez vos SIRET. Le rapport arrive 48 h après.</p>
         <ul class="final-bullets">
-          <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg></span>Audit valeur 1 299 € — offert cabinets RCA</li>
+          <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg></span>Audit valeur 1 299 €, offert cabinets RCA</li>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg></span>Uniquement les SIRET · aucune donnée personnelle</li>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg></span>Relu par nos experts financement public</li>
           <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="5 12 10 17 20 7"/></svg></span>Rapport livré en 48 h · zéro engagement</li>
@@ -2051,25 +2219,26 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
           </div>
           <div class="txt">
-            Audit portefeuille — <span class="line">1 299 €</span> <span class="new">OFFERT</span><br>
+            Audit portefeuille, <span class="line">1 299 €</span> <span class="new">OFFERT</span><br>
             <strong>dans le cadre du partenariat MAPi × RCA</strong>
           </div>
         </div>
 
-        <form onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='✓ Demande envoyée — nous vous recontactons sous 24 h'; b.disabled=true; b.style.background='#17B67A'; b.style.color='#fff';">
+        <p class="form-required-key" id="required-key"><span aria-hidden="true">*</span> champs requis</p>
+        <form onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='✓ Demande envoyée, nous vous recontactons sous 24 h'; b.disabled=true; b.classList.add('btn-success');" aria-describedby="required-key">
           <div class="form-row">
-            <div class="form-field"><label for="fn">Prénom</label><input id="fn" type="text" required placeholder="Marie"/></div>
-            <div class="form-field"><label for="ln">Nom</label><input id="ln" type="text" required placeholder="Durand"/></div>
+            <div class="form-field"><label for="fn">Prénom <span class="req" aria-hidden="true">*</span></label><input id="fn" type="text" required aria-required="true" autocomplete="given-name" placeholder="Marie"/></div>
+            <div class="form-field"><label for="ln">Nom <span class="req" aria-hidden="true">*</span></label><input id="ln" type="text" required aria-required="true" autocomplete="family-name" placeholder="Durand"/></div>
           </div>
-          <div class="form-field"><label for="cab">Cabinet</label><input id="cab" type="text" required placeholder="Ex. Durand & Associés"/></div>
+          <div class="form-field"><label for="cab">Cabinet <span class="req" aria-hidden="true">*</span></label><input id="cab" type="text" required aria-required="true" autocomplete="organization" placeholder="Ex. Durand &amp; Associés"/></div>
           <div class="form-row">
-            <div class="form-field"><label for="mail">Email pro</label><input id="mail" type="email" required placeholder="marie@cabinet.fr"/></div>
-            <div class="form-field"><label for="phone">Téléphone</label><input id="phone" type="tel" required placeholder="06 xx xx xx xx"/></div>
+            <div class="form-field"><label for="mail">Email pro <span class="req" aria-hidden="true">*</span></label><input id="mail" type="email" required aria-required="true" autocomplete="email" inputmode="email" placeholder="marie@cabinet.fr"/></div>
+            <div class="form-field"><label for="phone">Téléphone <span class="req" aria-hidden="true">*</span></label><input id="phone" type="tel" required aria-required="true" autocomplete="tel" inputmode="tel" placeholder="06 xx xx xx xx"/></div>
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label for="size">Taille du portefeuille</label>
-              <select id="size" required>
+              <label for="size">Taille du portefeuille <span class="req" aria-hidden="true">*</span></label>
+              <select id="size" required aria-required="true">
                 <option value="">Sélectionner…</option>
                 <option>Moins de 50 clients</option>
                 <option>50 à 150 clients</option>
@@ -2078,26 +2247,28 @@
               </select>
             </div>
             <div class="form-field">
-              <label for="rca">Client RCA ?</label>
-              <select id="rca" required>
+              <label for="rca">Client RCA ? <span class="req" aria-hidden="true">*</span></label>
+              <select id="rca" required aria-required="true">
                 <option value="">Sélectionner…</option>
-                <option>Oui · MEG</option>
-                <option>Oui · Logiciels Experts</option>
-                <option>Oui · Full Services</option>
+                <option>Oui, MEG</option>
+                <option>Oui, Logiciels Experts</option>
+                <option>Oui, Full Services</option>
                 <option>Non, pas encore</option>
               </select>
             </div>
           </div>
           <button type="submit" class="btn btn-blue">
             Obtenir mon audit offert <span class="ct-strike">(1 299 €)</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
-          <div class="form-legal">En envoyant ce formulaire, vous acceptez d'être recontacté·e par MAPi. Pour l'audit, seuls les SIRET seront demandés. Données confidentielles · RGPD · hébergement France · PASSI.</div>
+          <div class="form-legal">En envoyant ce formulaire, vous acceptez d'être recontacté·e par MAPi. Pour l'audit, seuls les SIRET seront demandés. Données confidentielles, RGPD, hébergement France, PASSI.</div>
         </form>
       </div>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ========= FOOTER ========= -->
 <footer class="footer">
@@ -2105,11 +2276,11 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="duo">
-          <img src="assets/logos/logo-mapi.svg" alt="MAPi" class="logo-mapi" style="height:40px" />
-          <span class="sep">×</span>
-          <img src="assets/logos/logo-rca.svg" alt="RCA" class="logo-rca logo-invert" style="height:30px" />
+          <img src="assets/logos/logo-mapi.svg" alt="MAPi" class="logo-mapi" width="120" height="40" loading="lazy" decoding="async" style="height:40px;width:auto" />
+          <span class="sep" aria-hidden="true">×</span>
+          <img src="assets/logos/logo-rca.png" alt="RCA" class="logo-rca logo-invert" width="106" height="32" loading="lazy" decoding="async" style="height:32px;width:auto" />
         </div>
-        <p>MAPi — Mes Aides Publiques Infogreffe. La solution hybride qui rend les aides publiques accessibles à toutes les entreprises françaises. Adossée à Infogreffe.</p>
+        <p>MAPi, Mes Aides Publiques Infogreffe. La solution hybride qui rend les aides publiques accessibles à toutes les entreprises françaises. Adossée à Infogreffe.</p>
       </div>
       <div>
         <h5>L'offre</h5>
@@ -2134,7 +2305,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 MAPi — Mes Aides Publiques Infogreffe · Tous droits réservés</span>
+      <span>© 2026 MAPi, Mes Aides Publiques Infogreffe · Tous droits réservés</span>
       <nav>
         <a href="#">Partenariat MAPi × RCA</a>
         <a href="#">Mentions légales</a>
@@ -2154,7 +2325,28 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
 
-  // Rotating hero amount — montants réels de dossiers MAPi
+  // Mobile burger nav
+  (function() {
+    const burger = document.querySelector('.nav-burger');
+    const links  = document.getElementById('nav-links');
+    if (!burger || !links) return;
+    function setOpen(open) {
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation');
+      links.classList.toggle('is-open', open);
+    }
+    burger.addEventListener('click', () => {
+      setOpen(burger.getAttribute('aria-expanded') !== 'true');
+    });
+    // Close on link click (anchor navigation)
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') setOpen(false);
+    });
+  })();
+
+  // Rotating hero amount, montants réels de dossiers MAPi
   (function() {
     const el = document.getElementById('rotating-amount');
     if (!el) return;
