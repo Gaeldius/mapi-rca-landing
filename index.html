@@ -116,6 +116,11 @@
 
     --f:         'Museo Sans','Museo Sans Cyrl','Helvetica Neue',system-ui,sans-serif;
     --maxw:      1240px;
+
+    /* Motion easings — natural exponential deceleration. No bounce, no elastic. */
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* ================================================================
@@ -1642,17 +1647,109 @@
   .logo-invert { filter: brightness(0) invert(1); }
 
   /* ================================================================
-     ENTRANCE
+     MOTION — one signature entrance, micro-feedback, nothing else
      ================================================================ */
-  [data-animate] {
-    opacity: 0; transform: translateY(28px);
-    transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+
+  /* Scroll reveals (everything below the fold) */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-animate] {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .8s var(--ease-out-quart), transform .8s var(--ease-out-quart);
+    }
+    [data-animate].in { opacity: 1; transform: translateY(0); }
+    [data-animate][data-delay="1"] { transition-delay: .08s; }
+    [data-animate][data-delay="2"] { transition-delay: .18s; }
+    [data-animate][data-delay="3"] { transition-delay: .28s; }
+    [data-animate][data-delay="4"] { transition-delay: .38s; }
   }
-  [data-animate].in { opacity: 1; transform: translateY(0); }
-  [data-animate][data-delay="1"] { transition-delay: .1s; }
-  [data-animate][data-delay="2"] { transition-delay: .2s; }
-  [data-animate][data-delay="3"] { transition-delay: .3s; }
-  [data-animate][data-delay="4"] { transition-delay: .4s; }
+
+  /* Stat numbers: confident scale-up after the card enters */
+  .stat-card .num {
+    transition: opacity .9s var(--ease-out-expo) .15s,
+                transform 1s var(--ease-out-expo) .15s;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .stat-card .num { opacity: 0; transform: scale(.92); }
+    .stat-card.in .num { opacity: 1; transform: scale(1); }
+  }
+
+  /* HERO — orchestrated entrance (above-the-fold, plays on load) */
+  @keyframes h-rise {
+    from { opacity: 0; transform: translateY(34px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes h-rise-blur {
+    from { opacity: 0; transform: translateY(38px); filter: blur(10px); }
+    to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes h-card-enter {
+    from { opacity: 0; transform: translateY(48px) rotate(2deg) scale(.94); }
+    to   { opacity: 1; transform: translateY(0) rotate(-1.2deg) scale(1); }
+  }
+  @keyframes h-row {
+    from { opacity: 0; transform: translateX(-14px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-text > * { animation: h-rise .9s var(--ease-out-quart) both; }
+    .hero-text > h1               { animation: h-rise-blur 1.05s var(--ease-out-expo) .12s both; }
+    .hero-text > .hero-lede       { animation-delay: .42s; }
+    .hero-text > .hero-ctas       { animation-delay: .58s; }
+    .hero-text > .hero-trust      { animation-delay: .72s; }
+
+    .hero-trust-item {
+      opacity: 0; transform: translateY(18px);
+      animation: h-rise .7s var(--ease-out-quart) both;
+    }
+    .hero-trust-item:nth-child(1) { animation-delay: .80s; }
+    .hero-trust-item:nth-child(2) { animation-delay: .88s; }
+    .hero-trust-item:nth-child(3) { animation-delay: .96s; }
+    .hero-trust-item:nth-child(4) { animation-delay: 1.04s; }
+
+    /* `backwards` instead of `both`: lets :hover take over after entry */
+    .hero-visual .card-audit { animation: h-card-enter 1.15s var(--ease-out-expo) .35s backwards; }
+
+    /* Audit card body rows: live-data feel — each row appears after the card lands */
+    .card-audit .row,
+    .card-audit .total,
+    .card-audit .card-cats,
+    .card-audit .foot {
+      animation: h-row .55s var(--ease-out-quart) both;
+    }
+    .card-audit .row:nth-of-type(1) { animation-delay: 1.10s; }
+    .card-audit .row:nth-of-type(2) { animation-delay: 1.18s; }
+    .card-audit .row:nth-of-type(3) { animation-delay: 1.26s; }
+    .card-audit .total              { animation-delay: 1.40s; }
+    .card-audit .card-cats          { animation-delay: 1.50s; }
+    .card-audit .foot               { animation-delay: 1.60s; }
+  }
+
+  /* Button press affordance — tactile micro-feedback */
+  .btn { transition: transform .2s var(--ease-out-quart), box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
+  .btn:active { transition-duration: .08s; transform: translateY(0) scale(.97); }
+
+  /* CTA shine sweep — premium polish on hover (blue button only) */
+  .btn-blue { position: relative; overflow: hidden; isolation: isolate; }
+  .btn-blue::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%);
+    transform: translateX(-110%);
+    transition: transform .85s var(--ease-out-quart);
+    pointer-events: none; z-index: 1;
+  }
+  .btn-blue:hover::before { transform: translateX(110%); }
+  .btn-blue > * { position: relative; z-index: 2; }
+
+  /* Reduced motion — collapse everything to instant */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body id="top">
@@ -1697,7 +1794,7 @@
 <section class="hero">
   <div class="container hero-inner">
 
-    <div data-animate>
+    <div class="hero-text">
       <h1>
         <span class="rotating-amount" id="rotating-amount" aria-live="polite">Des aides</span><br>
         <span class="italic">dorment dans</span><br>
@@ -1724,7 +1821,7 @@
       </div>
     </div>
 
-    <div class="hero-visual" data-animate data-delay="2">
+    <div class="hero-visual">
       <figure class="card-audit" aria-labelledby="card-audit-title">
         <figcaption id="card-audit-title" class="sr-only">Exemple d'audit de portefeuille pour un cabinet fictif (Martin &amp; Associés), valeur 1 299 € offerte. Sur 142 SIRET scannés, 38 entreprises priorisées qualifiées sur 4 catégories : 14 en filière prioritaire, 9 en activation rapide, 8 éligibles aux aides BTP, 7 aux aides fiscales.</figcaption>
         <div class="top" aria-hidden="true">
