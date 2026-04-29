@@ -4,3 +4,7 @@ Thumbs.db
 .vscode/
 .idea/
 node_modules/
+
+# impeccable skill — installed locally, not committed
+.claude/skills/
+skills-lock.json
