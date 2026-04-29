@@ -593,6 +593,26 @@
     color: var(--c-orange); letter-spacing: -0.02em;
     position: relative; z-index: 1;
   }
+  .card-audit .total .v small {
+    font-size: 0.95rem; color: rgba(255,255,255,.55);
+    font-weight: 500; margin-left: 2px;
+  }
+  .card-audit .card-cats {
+    list-style: none; margin: 14px 22px 4px; padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px;
+    font-size: 0.78rem; color: var(--c-ink-80); font-weight: 600;
+  }
+  .card-audit .card-cats li {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-audit .card-cats .d {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex: none;
+  }
+  .card-audit .card-cats .d.prio { background: var(--c-blue); }
+  .card-audit .card-cats .d.fast { background: var(--c-orange); }
+  .card-audit .card-cats .d.btp  { background: var(--c-ink); }
+  .card-audit .card-cats .d.fisc { background: var(--c-paper); border: 1.5px solid var(--c-blue); }
   .card-audit .foot {
     padding: 14px 26px 22px;
     display: flex; gap: 10px; align-items: center;
@@ -892,13 +912,52 @@
   .audit-mock .clients .sect {
     font-size: 0.78rem; color: var(--c-ink-65); font-weight: 500;
   }
-  .audit-mock .clients .amt {
-    font-family: var(--f); font-weight: 900;
-    color: var(--c-blue); font-size: 1.1rem;
-    text-align: right; line-height: 1;
+  /* Qualification tags (replaces previous euro amount column) */
+  .audit-mock .clients .qual {
+    text-align: right; line-height: 1.3;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
   }
-  .audit-mock .clients .amt-sub {
-    font-size: 0.72rem; color: var(--c-ink-65); text-align: right; margin-top: 3px; font-weight: 500;
+  .audit-mock .clients .qual-tag {
+    font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .audit-mock .clients .qual-tag.prio {
+    background: var(--c-blue-10); color: var(--c-blue);
+  }
+  .audit-mock .clients .qual-tag.fast {
+    background: var(--c-orange-12); color: var(--c-orange-800);
+  }
+  .audit-mock .clients .qual-tag.btp {
+    background: var(--c-ink); color: var(--c-paper);
+  }
+  .audit-mock .clients .qual-tag.fisc {
+    background: var(--c-paper);
+    color: var(--c-blue);
+    box-shadow: inset 0 0 0 1.5px var(--c-blue);
+  }
+  .audit-mock .clients .qual-sub {
+    font-size: 0.72rem; color: var(--c-ink-65); font-weight: 500;
+  }
+  .audit-mock .amock-legend {
+    list-style: none; margin: 16px 0 0; padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px;
+    font-size: 0.82rem; color: var(--c-ink-80); font-weight: 600;
+  }
+  .audit-mock .amock-legend li {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .audit-mock .amock-legend .dot {
+    display: inline-block; width: 9px; height: 9px;
+    border-radius: 50%; flex: none;
+  }
+  .audit-mock .amock-legend .dot.prio { background: var(--c-blue); }
+  .audit-mock .amock-legend .dot.fast { background: var(--c-orange); }
+  .audit-mock .amock-legend .dot.btp  { background: var(--c-ink); }
+  .audit-mock .amock-legend .dot.fisc { background: var(--c-paper); box-shadow: inset 0 0 0 1.5px var(--c-blue); }
+  @media (max-width: 480px) {
+    .audit-mock .amock-legend { grid-template-columns: 1fr; gap: 6px; }
   }
   .audit-mock .clients .tag {
     font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
@@ -955,9 +1014,10 @@
     .audit-wrap { grid-template-columns: 1fr; gap: 60px; }
   }
   @media (max-width: 520px) {
-    .audit-mock .clients li { grid-template-columns: 1fr auto; }
-    .audit-mock .clients .tag { grid-column: 2; }
-    .audit-mock .clients .amt-sub { display: none; }
+    .audit-mock .clients li { grid-template-columns: 1fr auto; gap: 10px; }
+    .audit-mock .clients .qual { grid-column: 1 / -1; align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    .audit-mock .clients .qual-sub { font-size: 0.7rem; }
+    .audit-mock .clients .tag { grid-column: 2; grid-row: 1; }
   }
 
   /* ================================================================
@@ -1639,13 +1699,13 @@
 
     <div data-animate>
       <h1>
-        <span class="rotating-amount" id="rotating-amount" aria-live="polite">40 000 €</span><br>
+        <span class="rotating-amount" id="rotating-amount" aria-live="polite">Des aides</span><br>
         <span class="italic">dorment dans</span><br>
         <span class="hl">votre portefeuille</span>
       </h1>
 
       <p class="hero-lede">
-        MAPi n'est pas une plateforme. C'est une <strong>solution hybride</strong> : nos experts en financement public traitent chaque dossier de bout en bout, pendant que la plateforme assure la veille continue sur 11 738 aides. Vos clients touchent l'argent. Vous gardez la main.
+        MAPi n'est pas une plateforme. C'est une <strong>solution hybride</strong> : nos experts en financement public traitent chaque dossier de bout en bout, la plateforme veille en continu. L'audit qualifie vos entreprises sur <strong>4 catégories</strong> : filières prioritaires, aides à activation rapide, aides BTP, aides fiscales. Sans demander une seule donnée financière.
       </p>
 
       <div class="hero-ctas">
@@ -1666,7 +1726,7 @@
 
     <div class="hero-visual" data-animate data-delay="2">
       <figure class="card-audit" aria-labelledby="card-audit-title">
-        <figcaption id="card-audit-title" class="sr-only">Exemple d'audit de portefeuille pour un cabinet fictif (Martin &amp; Associés), valeur 1 299 € offerte. Sur 142 SIRET scannés, 38 dossiers éligibles identifiés. Potentiel d'aides détecté : 1 247 000 €.</figcaption>
+        <figcaption id="card-audit-title" class="sr-only">Exemple d'audit de portefeuille pour un cabinet fictif (Martin &amp; Associés), valeur 1 299 € offerte. Sur 142 SIRET scannés, 38 entreprises priorisées qualifiées sur 4 catégories : 14 en filière prioritaire, 9 en activation rapide, 8 éligibles aux aides BTP, 7 aux aides fiscales.</figcaption>
         <div class="top" aria-hidden="true">
           <div class="label">
             <span class="k">Audit portefeuille</span>
@@ -1676,11 +1736,11 @@
         </div>
         <div class="body" aria-hidden="true">
           <div class="row">
-            <div class="desc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></span>SIRET transmis (aucune autre donnée)</div>
+            <div class="desc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></span>SIRET scannés (aucune autre donnée)</div>
             <div class="val">142</div>
           </div>
           <div class="row">
-            <div class="desc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Dossiers éligibles identifiés</div>
+            <div class="desc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Entreprises priorisées</div>
             <div class="val accent">38</div>
           </div>
           <div class="row">
@@ -1689,9 +1749,15 @@
           </div>
         </div>
         <div class="total" aria-hidden="true">
-          <span class="k">Potentiel d'aides détecté</span>
-          <span class="v">1 247 000 €</span>
+          <span class="k">Entreprises priorisées</span>
+          <span class="v">38<small>/142</small></span>
         </div>
+        <ul class="card-cats" aria-hidden="true">
+          <li><span class="d prio"></span>14 prioritaires</li>
+          <li><span class="d fast"></span>9 activations</li>
+          <li><span class="d btp"></span>8 BTP</li>
+          <li><span class="d fisc"></span>7 fiscales</li>
+        </ul>
         <div class="foot" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           Exemple, cabinet 140 clients, PASSI, hébergé en France
@@ -1847,7 +1913,7 @@
       </div>
       <span class="eyebrow">Audit de portefeuille</span>
       <h2>Votre portefeuille audité, et <em>relu</em> par nos experts en financement public.</h2>
-      <p>Ce n'est pas un simple scan automatisé. Chaque audit est passé au crible par un ingénieur en financement public avant de vous être remis. L'intérêt d'une opportunité n'est jamais évalué par une machine seule.</p>
+      <p>Ce n'est pas un simple scan automatisé. Chaque entreprise est qualifiée par un ingénieur en financement public sur <strong>4 catégories</strong> avant que le rapport ne vous arrive. À ce stade, sans projet identifié, on ne fait pas semblant de chiffrer un montant : on identifie le potentiel.</p>
 
       <ul class="audit-promise">
         <li>
@@ -1861,21 +1927,21 @@
           <span class="num">02</span>
           <div class="content">
             <strong>La plateforme croise avec 11 738 aides</strong>
-            <span class="txt">Par secteur d'activité, taille, territoire, projets identifiés publiquement. La veille automatisée détecte des opportunités invisibles à l'œil nu.</span>
+            <span class="txt">Par secteur d'activité, taille, territoire, dispositif. La veille automatisée fait remonter les correspondances invisibles à l'œil nu.</span>
           </div>
         </li>
         <li>
           <span class="num">03</span>
           <div class="content">
-            <strong>Nos experts financement public relisent tout</strong>
-            <span class="txt">Chaque correspondance est validée humainement. Nos ingénieurs écartent le bruit, priorisent les dossiers "chauds", et précisent les conditions réelles d'éligibilité.</span>
+            <strong>Qualification sur 4 catégories</strong>
+            <span class="txt">Filières prioritaires régionales, aides à activation rapide, aides BTP, aides fiscales. Chaque entreprise est positionnée par nos experts dans une ou plusieurs catégories.</span>
           </div>
         </li>
         <li>
           <span class="num">04</span>
           <div class="content">
             <strong>Rapport actionnable livré en 48 h, <span style="color:var(--c-orange)">valeur 1 299 € · OFFERT RCA</span></strong>
-            <span class="txt">Client par client, aide par aide, montant potentiel estimé, priorité et commentaire de l'expert. Directement utilisable avec votre client.</span>
+            <span class="txt">Client par client : positionnement, dispositifs ciblés, niveau de priorité, commentaire de l'expert. Directement utilisable pour votre prochain rendez-vous client.</span>
           </div>
         </li>
       </ul>
@@ -1901,41 +1967,56 @@
             <li>
               <div class="who">
                 <span class="name">Ardèche Menuiserie Industrielle</span>
-                <span class="sect">Industrie · Filière bois · 24 salariés</span>
+                <span class="sect">Industrie &middot; Filière bois &middot; 24 salariés</span>
               </div>
-              <div><div class="amt">142 000 €</div><div class="amt-sub">France 2030 · Région</div></div>
-              <span class="tag hot">Chaud</span>
+              <div class="qual">
+                <span class="qual-tag prio">Filière prioritaire</span>
+                <span class="qual-sub">France 2030 actif</span>
+              </div>
+              <span class="tag hot">À activer</span>
             </li>
             <li>
               <div class="who">
-                <span class="name">Bistrot du Port, SARL</span>
-                <span class="sect">CHR · Rénovation · 9 salariés</span>
+                <span class="name">BTP Méditerranée Constructions</span>
+                <span class="sect">BTP &middot; Gros œuvre &middot; 14 salariés</span>
               </div>
-              <div><div class="amt">37 500 €</div><div class="amt-sub">Région Tourisme</div></div>
+              <div class="qual">
+                <span class="qual-tag btp">Aide BTP</span>
+                <span class="qual-sub">RGE &middot; Rénovation chantier</span>
+              </div>
+              <span class="tag hot">À activer</span>
+            </li>
+            <li>
+              <div class="who">
+                <span class="name">Bistrot du Port (SARL)</span>
+                <span class="sect">CHR &middot; Rénovation &middot; 9 salariés</span>
+              </div>
+              <div class="qual">
+                <span class="qual-tag fast">Activation rapide</span>
+                <span class="qual-sub">Tourisme régional</span>
+              </div>
               <span class="tag">Éligible</span>
-            </li>
-            <li>
-              <div class="who">
-                <span class="name">CasseAuto Rhône Recyclage</span>
-                <span class="sect">Économie circulaire · 18 salariés</span>
-              </div>
-              <div><div class="amt">86 000 €</div><div class="amt-sub">ADEME · Fonds vert</div></div>
-              <span class="tag hot">Chaud</span>
             </li>
             <li>
               <div class="who">
                 <span class="name">GAEC des Quatre Vents</span>
-                <span class="sect">Agriculture · Modernisation</span>
+                <span class="sect">Agriculture &middot; Modernisation</span>
               </div>
-              <div><div class="amt">54 200 €</div><div class="amt-sub">FEADER · PAC</div></div>
+              <div class="qual">
+                <span class="qual-tag prio">Filière prioritaire</span>
+                <span class="qual-sub">FEADER &middot; PAC</span>
+              </div>
               <span class="tag">Éligible</span>
             </li>
             <li>
               <div class="who">
-                <span class="name">Transports Bellevue SAS</span>
-                <span class="sect">Logistique · Transition éco</span>
+                <span class="name">Garage Pierre &amp; Fils</span>
+                <span class="sect">Services auto &middot; ZRR &middot; 6 salariés</span>
               </div>
-              <div><div class="amt">98 700 €</div><div class="amt-sub">Verdissement flotte</div></div>
+              <div class="qual">
+                <span class="qual-tag fisc">Aide fiscale</span>
+                <span class="qual-sub">CI apprentissage &middot; ZRR</span>
+              </div>
               <span class="tag">Éligible</span>
             </li>
           </ul>
@@ -1950,9 +2031,15 @@
           </div>
 
           <div class="total">
-            <span class="k">Potentiel cumulé · 5 premiers clients</span>
-            <span class="v">418 400 €</span>
+            <span class="k">Sur 142 SIRET, 38 entreprises priorisées</span>
+            <span class="v">14 + 9 + 8 + 7</span>
           </div>
+          <ul class="amock-legend" aria-hidden="true">
+            <li><span class="dot prio"></span>14 filières prioritaires</li>
+            <li><span class="dot fast"></span>9 activations rapides</li>
+            <li><span class="dot btp"></span>8 aides BTP</li>
+            <li><span class="dot fisc"></span>7 aides fiscales</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -2346,18 +2433,17 @@
     });
   })();
 
-  // Rotating hero amount, montants réels de dossiers MAPi
+  // Rotating hero claim, what the audit actually surfaces (no euro amounts)
   (function() {
     const el = document.getElementById('rotating-amount');
     if (!el) return;
     const amounts = [
-      '40 000 €',
-      '77 000 €',
-      '142 000 €',
-      '250 000 €',
-      '418 000 €',
-      '680 000 €',
-      '1 247 000 €'
+      'Des aides',
+      'Des filières',
+      'Des dossiers',
+      'Des opportunités',
+      'Des dispositifs',
+      'Des activations'
     ];
     let idx = 0;
     const TICK = 2600;   // total time per amount

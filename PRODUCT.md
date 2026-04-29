@@ -8,6 +8,29 @@ A landing page promoting an **exclusive offer reserved for cabinets clients RCA*
 Live URL: https://gaeldius.github.io/mapi-rca-landing/
 Repo: https://github.com/Gaeldius/mapi-rca-landing
 
+## Audit de portefeuille — ce qu'il est, ce qu'il n'est pas
+
+À ce stade du parcours, **aucun projet n'est identifié au niveau de chaque entreprise** ; il est donc impossible (et malhonnête) de chiffrer un montant d'aide publique par client. L'audit qualifie le **potentiel**, il ne le monétise pas.
+
+### Ce que l'audit produit (sortie réelle)
+
+L'audit positionne chaque entreprise scannée sur **4 catégories** :
+
+1. **Filières prioritaires régionales** — secteurs sur lesquels une région ou France 2030 active des dispositifs ciblés (filière bois, économie circulaire, agriculture, agroalimentaire, etc.).
+2. **Aides à activation rapide** — dispositifs déployables sans projet d'investissement lourd ni montage long (tourisme, verdissement, formation, etc.).
+3. **Aides BTP** — dispositifs spécifiques au secteur de la construction (RGE, MaPrimeRénov' Pro, rénovation chantier, etc.).
+4. **Aides fiscales** — crédits d'impôt et déductions (apprentissage, formation, ZRR/ZFU, suramortissement, etc.). **Hors CIR/CII/JEI/C3IV** — ces dispositifs ne sont pas traités par MAPi.
+
+Pour chaque entreprise du portefeuille : positionnement (1+ catégories), dispositifs ciblés, niveau de priorité ("À activer" / "Éligible"), commentaire de l'expert.
+
+### Ce que l'audit ne produit PAS
+
+- ❌ Aucun montant d'aide publique par entreprise (pas de projet = pas de montant)
+- ❌ Aucun "potentiel cumulé en euros" pour le portefeuille
+- ❌ Aucun engagement contractuel pour le cabinet à l'issue de l'audit
+
+Les seuls montants visibles sur la landing sont des **résultats post-dossier déjà obtenus** (ex. exemple "77 000 € levés → 3 600 € de CA cabinet") ou des **chiffres de track record MAPi** (ex. 17 M€ de dossiers en cours), jamais des prédictions issues de l'audit.
+
 ## Audience (the ONE reader to design for)
 
 **Persona principal — Marie Durand, EC associée, cabinet de 8-15 collaborateurs.**
