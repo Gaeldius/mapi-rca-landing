@@ -1242,6 +1242,27 @@
     .kpi-grid { grid-template-columns: 1fr; }
     .kpi-item.feature { grid-column: span 1; }
   }
+  /* Footnote markers and small print */
+  .fn {
+    color: var(--c-orange);
+    font-weight: 700;
+    margin-left: 1px;
+    font-size: .65em;
+    vertical-align: super;
+    line-height: 1;
+  }
+  .kpi-footnote {
+    margin: 36px auto 0; max-width: 760px;
+    text-align: center;
+    font-size: .82rem; color: rgba(255,255,255,.7); font-weight: 500;
+    position: relative; z-index: 2;
+  }
+  .kpi-footnote .fn { color: var(--c-orange); }
+  .faq-fn {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--c-line);
+    font-size: .85rem; color: var(--c-ink-65); font-weight: 500;
+  }
 
   /* ================================================================
      OFFER
@@ -2238,14 +2259,15 @@
         <div class="l">en cours depuis janvier 2026</div>
       </div>
       <div class="kpi-item" data-animate data-delay="3">
-        <div class="v">40<small>%</small></div>
-        <div class="l">de commission pour votre cabinet</div>
+        <div class="v">40<small>%</small><sup class="fn">*</sup></div>
+        <div class="l">de commission pour votre cabinet<sup class="fn">*</sup></div>
       </div>
       <div class="kpi-item" data-animate data-delay="4">
         <div class="v">250<small>+</small></div>
         <div class="l">cabinets EC partenaires</div>
       </div>
     </div>
+    <p class="kpi-footnote"><sup class="fn">*</sup>Dans le cas où vous refacturez au moins 13 % de success fees à votre client final.</p>
   </div>
 </section>
 
@@ -2301,7 +2323,7 @@
       <details class="faq-item" data-animate><summary>"Quelles données devez-vous avoir pour l'audit ?"</summary><div class="ans"><p><strong>Uniquement les SIRET de vos clients.</strong> Pas de bilans, pas de comptes, pas de données nominatives. Un simple CSV avec les numéros SIRET suffit. Les données publiques (Infogreffe, INSEE) nous donnent ce qu'il faut pour détecter les opportunités. Tout est hébergé en France, certifié PASSI, conforme RGPD.</p></div></details>
       <details class="faq-item" data-animate><summary>"L'audit à 1 299 €, pourquoi offert ?"</summary><div class="ans"><p>L'audit portefeuille standard chez MAPi est facturé <strong>1 299 € HT</strong> : c'est le coût réel du temps d'un expert financement public pour relire, valider, prioriser les dossiers de votre base. Dans le cadre de notre partenariat avec RCA, il est <strong>intégralement offert</strong> aux cabinets clients RCA. C'est notre pari : vous montrer la valeur avant de vous demander quoi que ce soit.</p></div></details>
       <details class="faq-item" data-animate><summary>"MAPi, c'est un logiciel ou un cabinet de conseil ?"</summary><div class="ans"><p>Ni l'un, ni l'autre, les deux. MAPi est une <strong>solution hybride</strong>. Nos ingénieurs en financement public montent et négocient chaque dossier de bout en bout : qualification, constitution, négociation avec l'agent instructeur (BPI, Région, ADEME), suivi post-dépôt. La plateforme sert de tour de contrôle : veille continue sur 11 738 aides, suivi temps réel de vos dossiers, alertes sur les nouvelles opportunités.</p></div></details>
-      <details class="faq-item" data-animate><summary>"Je n'ai pas le temps de monter ces dossiers."</summary><div class="ans"><p>C'est précisément le point. L'expert MAPi fait le montage, la constitution du dossier, les allers-retours avec l'administration, <strong>la phase de négociation</strong>. Vous validez aux points de contrôle, votre client touche l'aide, vous touchez 40 % de la commission. Charge de travail cabinet : minime.</p></div></details>
+      <details class="faq-item" data-animate><summary>"Je n'ai pas le temps de monter ces dossiers."</summary><div class="ans"><p>C'est précisément le point. L'expert MAPi fait le montage, la constitution du dossier, les allers-retours avec l'administration, <strong>la phase de négociation</strong>. Vous validez aux points de contrôle, votre client touche l'aide, vous touchez 40 % de la commission<sup class="fn">*</sup>. Charge de travail cabinet : minime.</p><p class="faq-fn"><sup class="fn">*</sup>Dans le cas où vous refacturez au moins 13 % de success fees à votre client final.</p></div></details>
       <details class="faq-item" data-animate><summary>"Mes clients sont des TPE / PME, ils sont trop petits."</summary><div class="ans"><p>Faux. Un bistrot qui rénove sa terrasse, un artisan qui achète une machine, une casse auto qui s'équipe, un GAEC qui modernise, tous éligibles. On a levé <strong>77 000 €</strong> pour un investissement de 12 000 €. Les TPE/PME sont notre cœur de cible.</p></div></details>
       <details class="faq-item" data-animate><summary>"Et si le dossier est refusé ?"</summary><div class="ans"><p>87 % de succès. Si refus : <strong>zéro commission, zéro facture</strong>. Pas de risque. Nos experts savent aussi représenter un dossier après un refus, dans la plupart des cas, c'est un détail qui se corrige dans la phase de négociation.</p></div></details>
       <details class="faq-item" data-animate><summary>"On travaille déjà avec Sogedev / Ayming sur le CIR."</summary><div class="ans"><p>Parfait. MAPi <strong>ne traite pas le CIR/CII/JEI</strong>. Nous couvrons les 11 000 autres aides : régionales, sectorielles, européennes, ADEME, France 2030, investissement, export, transition écologique. Nous sommes complémentaires, pas concurrents.</p></div></details>
