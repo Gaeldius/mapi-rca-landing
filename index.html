@@ -626,9 +626,13 @@
   .card-audit .foot svg { width: 16px; height: 16px; color: var(--c-blue); flex: none; }
 
   .hero-wave {
-    position: absolute; left: 0; right: 0; bottom: -2px;
-    z-index: 1; pointer-events: none;
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    display: block;
+    width: 100%; height: 90px;
+    z-index: 2; pointer-events: none;
   }
+  /* Belt-and-suspenders: ensure no sub-pixel white seam by overlapping Steps */
+  .steps { margin-top: -1px; position: relative; z-index: 1; }
 
   @media (max-width: 980px) {
     .hero {
